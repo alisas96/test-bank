@@ -11,7 +11,7 @@ class RequestSpecs:
         return {"Content-Type": "application/json", "accept": "application/json"}
 
     @staticmethod
-    def auth_headers(username: str, password: str):
+    def auth_headers(username: str, password: str) -> dict:
         request = LoginUserRequest(username=username, password=password)
         response = requests.post(
             url="http://localhost:4111/api/auth/token/login",
@@ -27,5 +27,5 @@ class RequestSpecs:
         raise Exception("Failed to login")
 
     @staticmethod
-    def unauth_headers():
+    def unauth_headers() -> dict:
         return RequestSpecs.base_headers()

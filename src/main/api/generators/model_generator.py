@@ -1,4 +1,4 @@
-from typing import Any, get_type_hints, get_origin, Annotated, get_args
+from typing import Any, get_type_hints, get_origin, Annotated, get_args, Optional
 from src.main.api.generators.creation_rule import CreationRule
 import rstr
 import random
@@ -7,11 +7,17 @@ import uuid
 
 class RandomModelGenerator:
     @staticmethod
-    def generate(cls: type) -> Any:
+    def generate(cls: type, overrides: Optional[dict[str, Any]] = None) -> Any:
         type_hints = get_type_hints(cls, include_extras=True)
         init_data = {}
 
+        overrides = overrides or {}
+
         for field_name, annotated_type in type_hints.items():
+            if field_name in overrides:
+                init_data[field_name] = overrides[field_name]
+                continue
+    
             rule = None
 
             if get_origin(annotated_type) is Annotated:

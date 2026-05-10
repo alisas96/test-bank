@@ -8,6 +8,8 @@ from src.main.api.models.create_user_request import CreateUserRequest
 from src.main.api.models.credit_request import CreditRequest
 from src.main.api.models.create_user_credit_request import CreateUserCreditRequest
 from src.main.api.models.credit_response import CreditResponse
+from src.main.api.models.credit_repay_request import CreditRepayRequest
+from src.main.api.models.credit_repay_response import CreditRepayResponse
 from src.main.api.models.transfer_response import TransferResponse
 from src.main.api.models.transfer_request import TransferRequest
 from src.main.api.models.create_user_response import CreateUserResponse
@@ -66,8 +68,14 @@ class Endpoint(Enum):
         response_model=TransferResponse,
     )
 
-    CREDIT = EndpointConfiguration(
+    GET_CREDIT = EndpointConfiguration(
         request_model=CreditRequest,
         url=f"/credit/request",
         response_model=CreditResponse,
+    )
+
+    REPAY_CREDIT = EndpointConfiguration(
+        request_model=CreditRepayRequest,
+        url=f"/credit/repay",
+        response_model=CreditRepayResponse,
     )
