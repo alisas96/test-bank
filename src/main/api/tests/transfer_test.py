@@ -29,14 +29,14 @@ class TestTransfer:
             create_user_request, transfer_request
         )
 
-        assert response.from_account_id_balance == 0
+        assert response.from_account_id_balance == 0, "Ошибка перевода"
 
         transaction_from_db = Transaction.get_transaction_by_to_account_id(
             db_session,
             response.to_account_id,
         )
 
-        assert transaction_from_db.transaction_type == TransactionType.TRANSFER
+        assert transaction_from_db.transaction_type == TransactionType.TRANSFER, "Тип транзакции не совпадает, ошибка"
 
     @pytest.mark.parametrize("amount", [499.99, 10000.10])
     def test_transfer_invalid_amount(
