@@ -24,7 +24,7 @@ class TestCredit:
             create_user_credit_request, credit_request
         )
 
-        assert credit_request.amount == response.balance
+        assert credit_request.amount == response.balance, "Ошибка получения кредита"
 
         credit_from_db = Credit.get_credit_by_id(db_session, response.credit_id)
 
