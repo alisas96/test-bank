@@ -26,14 +26,14 @@ class TestCreditRepay:
             create_user_credit_request, credit_repay_request
         )
 
-        assert credit_repay_request.amount == response.amount_deposited
-        assert credit_repay_request.credit_id == response.credit_id
+        assert credit_repay_request.amount == response.amount_deposited, "Кредит не оплачен, произошла ошибка"
+        assert credit_repay_request.credit_id == response.credit_id, "Номер кредита не совпадает"
 
         transaction_from_db = Transaction.get_transaction_by_credit_id(
             db_session, response.credit_id
         )
 
-        assert transaction_from_db.transaction_type == TransactionType.CREDIT_REPAYMENT
+        assert transaction_from_db.transaction_type == TransactionType.CREDIT_REPAYMENT, "Тип транзакции не совпадает, ошибка"
 
     @pytest.mark.parametrize(
         "amount",
