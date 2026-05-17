@@ -26,14 +26,14 @@ class TestDeposit:
             create_user_request, deposit_request
         )
 
-        assert deposit_request.amount == response.balance
+        assert deposit_request.amount == response.balance, "Перевод осуществлен неверно, ошибка"
 
         transaction_from_db = Transaction.get_transaction_by_to_account_id(
             db_session,
             response.id,
         )
 
-        assert transaction_from_db.transaction_type == TransactionType.DEPOSIT
+        assert transaction_from_db.transaction_type == TransactionType.DEPOSIT, "Тип транзакции не совпадает, ошибка"
 
     @pytest.mark.parametrize(
         "amount",
